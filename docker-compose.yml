@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  auth:
+    # entrypoint: [bin/start]
+    image: sajadkh/authentication
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8000:8000
+  app:
+    # entrypoint: [bin/start]
+    image: sajadkh/restaurant
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8001:8001
+  customer:
+    # entrypoint: [bin/start]
+    image: sajadkh/customer
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8002:8002
+  db: 
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: cloud
+      MYSQL_USER: 123456
+      MYSQL_PASSWORD: root
+
+volumes: 
+  db_data: {}
